@@ -1,0 +1,125 @@
+<h1 mat-dialog-title>{{ data.nodeObj.displayName }}</h1>
+<div mat-dialog-content>
+  <mat-tab-group animationDuration="500ms">
+    <!--
+      Identity Tabs
+    -->
+    <mat-tab 
+        [disabled]="data.nodeDetails.attributes?.length === 0"
+        *ngIf="data.nodeObj.type !== 'workgroup'"
+        label="{{ 'label.attributes' | translate }}">
+      <mat-list role="list" *ngFor="let item of data.nodeDetails.attributes">
+        <mat-list-item role="listitem">{{ item.attribute }}: {{ item.value }}</mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab 
+        [disabled]="data.nodeDetails.roleAssignments?.length === 0"
+        *ngIf="data.nodeObj.type !== 'workgroup'"
+        label="{{ 'label.assigned_roles' | translate }}">
+      <table mat-table [dataSource]="data.nodeDetails.roleAssignments" multiTemplateDataRows class="mat-elevation-z8">
+
+        <ng-container matColumnDef="roleName">
+          <th mat-header-cell *matHeaderCellDef> Role Name </th>
+          <td mat-cell *matCellDef="let roleAssignment"> {{ roleAssignment.roleName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="assigner">
+          <th mat-header-cell *matHeaderCellDef> Assigner </th>
+          <td mat-cell *matCellDef="let roleAssignment"> {{ roleAssignment.applicationName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef> Start Date </th>
+          <td mat-cell *matCellDef="let roleAssignment"> {{ roleAssignment.startDate }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef> End Date </th>
+          <td mat-cell *matCellDef="let roleAssignment"> {{ roleAssignment.endDate }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expand">
+          <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+              <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+              <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedAccountDetails">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="5">
+            <div class="element-detail"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="example-element-diagram">
+                  <mat-list role="list" *ngFor="let target of element.targets">
+                    <mat-list-item role="listitem">{{ target.applicationName }}: {{ target.displayableName }}</mat-list-item>
+                  </mat-list>
+                </div>
+            </div>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="['roleName', 'assigner', 'startDate', 'endDate', 'expand']"></tr>
+        <tr mat-row *matRowDef="let element; columns: ['roleName', 'assigner', 'startDate', 'endDate', 'expand'];"
+            class="element-row"
+            [class.expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedAccountDetails']" class="detail-row"></tr>
+      </table>
+    </mat-tab>
+    <mat-tab 
+        [disabled]="data.nodeDetails.policyViolations?.length === 0"
+        *ngIf="data.nodeObj.type !== 'workgroup'">
+        <ng-template mat-tab-label>
+          <span matBadge="{{data.nodeDetails.policyViolations?.length}}" matBadgeColor="accent" matBadgeOverlap="false">
+            {{ 'label.policy_violation' | translate }}
+         </span>
+        </ng-template>
+      <mat-list role="list" *ngFor="let violations of data.nodeDetails.policyViolations">
+        <mat-list-item role="listitem">{{ violations }}</mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab 
+        [disabled]="data.nodeDetails.workgroups?.length === 0"
+        *ngIf="data.nodeObj.type !== 'workgroup'"
+        label="{{ 'label.workgroups' | translate }}">
+      <mat-list role="list" *ngFor="let workgroup of data.nodeDetails.workgroups">
+        <mat-list-item role="listitem">{{ workgroup }}</mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <!--
+      Workgroup Tabs
+    -->
+    <mat-tab
+        [disabled]="data.nodeDetails.members?.length === 0"
+        *ngIf="data.nodeObj.type === 'workgroup'"
+        label="Members">
+      <mat-list role="list" *ngFor="let member of data.nodeDetails.members">
+        <mat-list-item role="listitem">{{ member }}</mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <!--
+      Common Tabs
+    -->
+    <mat-tab
+        [disabled]="data.nodeDetails.ownedEntitlements?.length === 0"
+        label="{{ 'label.owned_entitlements' | translate }}">
+      <mat-list role="list" *ngFor="let entitlement of data.nodeDetails.ownedEntitlements">
+        <mat-list-item role="listitem">{{ entitlement }}</mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab
+        [disabled]="data.nodeDetails.ownedRoles?.length === 0"
+        label="{{ 'label.owned_roles' | translate }}">
+      <mat-list role="list" *ngFor="let role of data.nodeDetails.ownedRoles">
+        <mat-list-item role="listitem">{{ role }}</mat-list-item>
+      </mat-list>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div class="dailog-buttons" mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>

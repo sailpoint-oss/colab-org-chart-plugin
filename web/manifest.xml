@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Plugin PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Plugin displayName="Organization Chart Plugin" minSystemVersion="8.1" name="orgchartplugin" rightRequired="orgchartpluginRight" version="1.0.0">
+  <Attributes>
+    <Map>
+      <entry key="minUpgradableVersion" value="1.0.0"/>
+      <entry key="fullPage">
+        <value>
+          <FullPage title="Organization Chart"/>
+        </value>
+      </entry>
+      <entry key="restResources">
+        <value>
+          <List>
+            <String>sailpoint.community.plugin.orgchartplugin.rest.IdentityResource</String>
+            <String>sailpoint.community.plugin.orgchartplugin.rest.PluginSettingResource</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="settings">
+        <value>
+          <List>
+            <Setting dataType="string" label="Level of Managers to be displayed" name="levels" defaultValue="2"/>
+            <Setting dataType="string" helpText="Display Attributes on the Identity Card defined in CSV format. Maximum 3 attributes can be configured, additional will be ignored" 
+            	label="Display Identity Attributes" name="identityCardAttributes"/>
+            <Setting dataType="string" helpText="Display Attributes on the Identity Details view defined in CSV format." 
+            	label="Display Identity Detail Attributes" name="identityDetailAttributes"/>
+            <Setting dataType="string" helpText="Display Attributes on the Workgroup Card defined in CSV format. Maximum 3 attributes can be configured, additional will be ignored" 
+            	label="Display Workgroup Attributes" name="workgroupCardAttributes"/>
+            <Setting dataType="string" helpText="Identity Attribute which stores the Icon Image in Basw64 format" 
+            	label="Icon Image Identity Attribute" name="identityIconImgAttribute"/>
+            <Setting dataType="string" helpText="Define color code per identity type and workgroup. In json format." 
+            	label="Color Code Setting" name="colorCodeSetting"/>
+            <Setting dataType="string" helpText="Rule to calculate the connection between each node." 
+            	label="Connection Rule" name="connectionRule"/>
+          </List>
+        </value>
+      </entry>
+      <entry key="snippets">
+	    <value>
+	     <List>
+	      <Snippet regexPattern=".*" rightRequired="orgchartpluginRight">
+	       <Scripts>
+	        <String>ui/js/headerInject.js</String>
+	       </Scripts>
+	      </Snippet>
+	      <Snippet regexPattern=".*\/define\/identity\/identity.jsf.*" rightRequired="orgchartpluginRight">
+	       <Scripts>
+	        <String>ui/js/headerInject2.js</String>
+	       </Scripts>
+	      </Snippet>
+	      <Snippet regexPattern=".*\/identities\/identities.jsf.*" rightRequired="orgchartpluginRight">
+	       <Scripts>
+	        <String>ui/js/headerInject3.js</String>
+	       </Scripts>
+	      </Snippet>
+	     </List>
+	    </value>
+	   </entry>
+    </Map>
+  </Attributes>
+</Plugin>
