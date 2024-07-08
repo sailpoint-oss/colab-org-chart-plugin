@@ -1,0 +1,59 @@
+{
+    "button": {
+        "search": "Search",
+        "submit": "Submit",
+        "fit_screen": "Fit Screen",
+        "compact": "Compact",
+        "root": "Root",
+        "details": "Details",
+        "swap_direction": "Swap Direction",
+        "collapse_all": "Collapse All",
+        "expand_all": "Expand All",
+        "connections": "Connections",
+        "download_pdf": "Download PDF"
+    },
+    "label": {
+        "attributes": "Attributes",
+        "highlight_filters": "Hihglight Filters",
+        "node_type": "Node Type",
+        "search_identity": "Search Identity",
+        "assigned_roles": "Assigned Roles",
+        "detected_roles": "Detected Roles",
+        "workgroups": "Workgroups",
+        "policy_violation": "Policy Violation",
+        "member": "Mitglieder",
+        "owned_entitlements": "Owned Entitlements",
+        "owned_roles": "Owned Roles"
+
+    },
+    "joyride": {
+        "title": {
+            "searchBar": "Select an Identity",
+            "highlightFilter": "Select filters to highlight nodes",
+            "action-buttons": "Action buttons",
+            "action-buttons-fitScreen": "Fit Screen",
+            "action-buttons-compact": "Compact",
+            "action-buttons-markRoot": "Mark Root",
+            "action-buttons-details": "Details",
+            "action-buttons-swapDirection": "Swap Direction",
+            "action-buttons-collapseAll": "Collapse All",
+            "action-buttons-expandAll": "Expand All",
+            "action-buttons-connections": "Connections",
+            "action-buttons-downloadPDF": "Download PDF"
+        },
+        "text": {
+            "searchBar": "Search Identity by identity name or display name. Please select an identity to continue the guide tour.",
+            "highlightFilter": "Select assigned/detect roles or workgroups to highlight nodes in the chart.",
+            "action-buttons": "Click on each action button to perform different operation on the orgchart.",
+            "action-buttons-fitScreen": "Resize the chart to fit into screen size.",
+            "action-buttons-compact": "Re-arrange the organizational chart to compact display.",
+            "action-buttons-markRoot": "Highlight the path from the selected node to the root.",
+            "action-buttons-details": "Display additional information on the node object, e.g. extended attributes, role assignments, policy violations.",
+            "action-buttons-swapDirection": "Change the direction of the organizational chart",
+            "action-buttons-collapseAll": "Collapse all nodes of the organizational chart",
+            "action-buttons-expandAll": "Expand all nodes of the organizational chart",
+            "action-buttons-connections": "Add connection node to the link based on pre-configured rule.",
+            "action-buttons-downloadPDF": "Export the organizational chart in PDF file"
+        }
+    }
+}

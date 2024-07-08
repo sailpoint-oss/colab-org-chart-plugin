@@ -1,0 +1,58 @@
+{
+    "button": {
+        "search": "Suchen",
+        "submit": "Einriechen",
+        "fit_screen": "Bildschirm anpassen",
+        "compact": "Kompakt",
+        "root": "Wurzel",
+        "details": "Einzelheiten",
+        "swap_direction": "Richtung tauschen",
+        "collapse_all": "Alle aufklappen",
+        "expand_all": "Alle erweitern",
+        "connections": "Verbindungen",
+        "download_pdf": "PDF herunterladen"
+    },
+    "label": {
+        "attributes": "Attribute",
+        "highlight_filters": "Hochwichtige Filtere",
+        "node_type": "Knote Typ",
+        "search_identity": "Suchen Sie eine Identität",
+        "assigned_roles": "Zugewiesene Rollen",
+        "detected_roles": "Etkannte Rollen",
+        "workgroups": "Arbeitsgruppen",
+        "policy_violation": "Richtlinienverstöße",
+        "member": "Mitglieder",
+        "owned_entitlements": "Eigene-Entitlements",
+        "owned_roles": "Eigene-Rollen"
+    },
+    "joyride": {
+        "title": {
+            "searchBar": "Suchen Sie eine Identität",
+            "highlightFilter": "Filter auswählen, um Knoten zu markieren",
+            "action-buttons": "Actionsschaltflächen",
+            "action-buttons-fitScreen": "Bildschirm anpassen",
+            "action-buttons-compact": "Kompakt",
+            "action-buttons-markRoot": "Wurzel markieren",
+            "action-buttons-details": "Einzelheiten",
+            "action-buttons-swapDirection": "Richtung tauschen",
+            "action-buttons-collapseAll": "Alle aufklappen",
+            "action-buttons-expandAll": "Alle erweitern",
+            "action-buttons-connections": "Verbindungen",
+            "action-buttons-downloadPDF": "PDF herunterladen"
+        },
+        "text": {
+            "searchBar": "Suchen Identität nach Identitätsname oder Anzeigename. Bitte walhen Sie eine Identität aus, um Führung zu fortzusetzen.",
+            "highlightFilter": "Walhen Sie zugewiesene/erkannte Rollen oder Arbeitsgruppen, um Knoten im Diagramm zu markieren.",
+            "action-buttons": "Klicken Sie auf jede Actionsschaltfläche, um verschiedene Operationen im Organigramm durchzuführen.",
+            "action-buttons-fitScreen": "Ändern Sie die Größe des Diagramms, um es an die Bildschirmgröße anzupassen.",
+            "action-buttons-compact": "Umstellen des Organigramm auf kompakte Darstellung.",
+            "action-buttons-markRoot": "Markieren Sie den Pfad vom ausgewälten Konten zur Wurzel.",
+            "action-buttons-details": "Anzeige zustäzlicher Informationen zum Kontenobjekt, z.B. erweiterte Attribute, Rollenzuweisungen, Richtlinienverstöße.",
+            "action-buttons-swapDirection": "Ändern Sie die Ausrichtung des Organigramms.",
+            "action-buttons-collapseAll": "Alle Knoten des Organigramms einklappen.",
+            "action-buttons-expandAll": "Alle Knoten des Organigramms erweitern.",
+            "action-buttons-connections": "Hinzufügen von Verbindungsknoten zur Verbindung auf der Grundlage einer vorkonfigurierten Regel.",
+            "action-buttons-downloadPDF": "Exportieren Sie das Organigramms als PDF-Datei."
+        }
+    }
+}

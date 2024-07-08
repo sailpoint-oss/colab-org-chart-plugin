@@ -1,0 +1,282 @@
+<div class="orgChartContainer">
+  <div class="chart-container"></div>
+
+  <div class="search-box">
+      <form 
+        joyrideStep="searchBar"
+        title="{{ 'joyride.title.searchBar' | translate }}"
+        text="{{ 'joyride.text.searchBar' | translate }}">
+        <mat-form-field>
+          <mat-label>{{ 'label.search_identity' | translate }}</mat-label>
+          <input 
+            type="text"
+            placeholder="Identity Name or DisplayName"
+            matInput
+            [formControl]="myIdentityControl"
+            [matAutocomplete]="idententiyAuto">
+          <mat-autocomplete #idententiyAuto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of identityOptions" [value]="option">
+              {{ option.displayName }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button 
+          mat-button 
+          color="primary" 
+          [disabled]="selected === undefined"
+          (click)="getOrgChart()"
+          type="button">
+          {{ 'button.search' | translate }}
+        </button><br/>
+    </form>
+    
+    <mat-expansion-panel [expanded]="highlightFilterExpanded === true"
+                        (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false"
+                        *ngIf="data.length !== 0"
+                        joyrideStep="highlightFilter"
+                        title="{{ 'joyride.title.highlightFilter' | translate }}"
+                        text="{{ 'joyride.text.highlightFilter' | translate }}">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'label.highlight_filters' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ 'label.node_type' | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <div 
+              *ngFor="let property of this.displayFilter | keyvalue">
+              <mat-slide-toggle
+                [id]="property.key"
+                color="primary"  
+                [checked]="displayFilter[property.key]"
+                (change)="toggleDisplayFilterChange(property.key)">
+              {{ this.nodeTypes[property.key] }}
+              </mat-slide-toggle><br />
+              
+            </div>
+          </div>
+        </mat-expansion-panel> 
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ 'label.assigned_roles' | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <mat-label>{{ 'label.assigned_roles' | translate }}</mat-label>
+            <input 
+              type="text"
+              placeholder="Selected Role"
+              matInput
+              [formControl]="myBundleControl"
+              [matAutocomplete]="assignedRoleAuto">
+            <mat-autocomplete #assignedRoleAuto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of bundleOptions" [value]="option">
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field><br/>
+          <mat-nav-list>
+            <mat-list-item *ngFor="let assignedRole of this.highlightFilter.assignedRoles">
+                <a>{{ assignedRole.name }}</a>
+                <button mat-icon-button (click)="removeHightedAssignedRole(assignedRole, 'assignedRoles')">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+            </mat-list-item>
+          </mat-nav-list><br />
+        </mat-expansion-panel> 
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ 'label.detected_roles' | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <mat-label>{{ 'label.detected_roles' | translate }}</mat-label>
+            <input 
+              type="text"
+              placeholder="Selected Role"
+              matInput
+              [formControl]="myBundle2Control"
+              [matAutocomplete]="detectedRoleAuto">
+            <mat-autocomplete #detectedRoleAuto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of bundleOptions" [value]="option">
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field><br/>
+          <mat-nav-list>
+            <mat-list-item *ngFor="let detectedRole of this.highlightFilter.detectedRoles">
+                <a>{{ detectedRole.name }}</a>
+                <button mat-icon-button (click)="removeHightedAssignedRole(detectedRole, 'detectedRoles')">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+            </mat-list-item>
+          </mat-nav-list><br />
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ 'label.workgroups' | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <mat-label>{{ 'label.workgroups' | translate }}</mat-label>
+            <input 
+              type="text"
+              placeholder="Workgroup"
+              matInput
+              [formControl]="myWorkgroupControl"
+              [matAutocomplete]="workgroupAuto">
+            <mat-autocomplete #workgroupAuto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of workgroupOptions" [value]="option">
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field><br/>
+          <mat-nav-list>
+            <mat-list-item *ngFor="let workgroup of this.highlightFilter.workgroups">
+                <a>{{ workgroup.name }}</a>
+                <button mat-icon-button (click)="removeHightedAssignedRole(workgroup, 'workgroups')">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+            </mat-list-item>
+          </mat-nav-list><br />
+        </mat-expansion-panel>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="analyseFilters()"
+          >
+          {{ 'button.submit' | translate }}
+        </button><br />
+      </div>
+    </mat-expansion-panel>
+  </div>
+
+  <div
+    class="help">
+    <button
+      mat-icon-button
+      (click)="help()"
+      >
+      <mat-icon>help</mat-icon>
+    </button>
+  </div>
+
+  <div 
+    joyrideStep="action-buttons"
+    title="{{ 'joyride.title.action-buttons' | translate }}"
+    text="{{ 'joyride.text.action-buttons' | translate }}"
+    class="action-buttons" *ngIf="data.length !== 0">
+    <button
+      joyrideStep="action-buttons-fitScreen"
+      title="{{ 'joyride.title.action-buttons-fitScreen' | translate }}"
+      text="{{ 'joyride.text.action-buttons-fitScreen' | translate }}"
+      mat-button
+      color="accent"
+      [disabled]="selected === undefined"
+      (click)="fit()"
+      type="button"
+    >
+    {{ 'button.fit_screen' | translate }}
+    </button><br/>
+    <button
+      joyrideStep="action-buttons-compact"
+      title="{{ 'joyride.title.action-buttons-compact' | translate }}"
+      text="{{ 'joyride.text.action-buttons-compact' | translate }}"
+      mat-button
+      color="accent"
+      [disabled]="selected === undefined"
+      (click)="compactDisplay()"
+      type="button"
+    >
+    {{ 'button.compact' | translate }}
+    </button><br/>
+    <button
+      joyrideStep="action-buttons-markRoot"
+      title="{{ 'joyride.title.action-buttons-markRoot' | translate }}"
+      text="{{ 'joyride.text.action-buttons-markRoot' | translate }}"
+      mat-button
+      color="accent"
+      [disabled]="selected === undefined"
+      (click)='markRoot()'
+      type="button"
+    >
+      {{ markRootDisplayState }} {{ 'button.root' | translate }}
+    </button><br />
+    <button
+      mat-button
+      joyrideStep="action-buttons-details"
+      title="{{ 'joyride.title.action-buttons-details' | translate }}"
+      text="{{ 'joyride.text.action-buttons-details' | translate }}"
+      color="accent"
+      [disabled]="selected === undefined"
+      (click)='getDetails()'
+      >
+      {{ 'button.details' | translate }}
+    </button><br />
+    <button
+      joyrideStep="action-buttons-swapDirection"
+      title="{{ 'joyride.title.action-buttons-swapDirection' | translate }}"
+      text="{{ 'joyride.text.action-buttons-swapDirection' | translate }}"
+      mat-button
+      color="accent"
+      [disabled]="selected === undefined"
+      (click)='swapDirection()'
+      >
+      {{ 'button.swap_direction' | translate }}
+    </button><br />
+    <button
+      joyrideStep="action-buttons-collapseAll"
+      title="{{ 'joyride.title.action-buttons-collapseAll' | translate }}"
+      text="{{ 'joyride.text.action-buttons-collapseAll' | translate }}"
+      mat-button
+      color="accent"
+      [disabled]="selected === undefined"
+      (click)='collapseAll()'
+      >
+      {{ 'button.collapse_all' | translate }}
+    </button><br />
+    <button
+      joyrideStep="action-buttons-expandAll"
+      title="{{ 'joyride.title.action-buttons-expandAll' | translate }}"
+      text="{{ 'joyride.text.action-buttons-expandAll' | translate }}"
+      mat-button
+      color="accent"
+      [disabled]="selected === undefined"
+      (click)='expandAll()'
+      >
+      {{ 'button.expand_all' | translate }}
+    </button><br />  
+    <button
+      joyrideStep="action-buttons-connections"
+      title="{{ 'joyride.title.action-buttons-connections' | translate }}"
+      text="{{ 'joyride.text.action-buttons-connections' | translate }}"
+      mat-button
+      color="accent"
+      [disabled]="selected === undefined"
+      (click)='toggleConnections()'
+      >
+      {{ connDisplayState }} {{ 'button.connections' | translate }}
+    </button><br />
+    <button
+      joyrideStep="action-buttons-downloadPDF"
+      title="{{ 'joyride.title.action-buttons-downloadPDF' | translate }}"
+      text="{{ 'joyride.text.action-buttons-downloadPDF' | translate }}"
+      mat-button
+      color="accent"
+      [disabled]="selected === undefined"
+      (click)='downloadPDF()'
+      >
+      {{ 'button.download_pdf' | translate }}
+    </button>
+  </div>
+</div>
