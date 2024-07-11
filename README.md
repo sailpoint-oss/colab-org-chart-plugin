@@ -12,8 +12,8 @@
 [contributor-shield]:https://img.shields.io/github/contributors/sailpoint-oss/repo-template?label=Contributors
 [contributors-url]:https://github.com/sailpoint-oss/repo-template/graphs/contributors
 
-# application-title-here
-[Explore the docs »](https://your-link-to-colab-topic-here)
+# IdentityIQ Org Chart Plugin
+[Explore the docs »](https://developer.sailpoint.com/discuss/t/identityiq-org-chart-plugin/72034)
 
 [New to the CoLab? Click here »](https://developer.sailpoint.com/discuss/t/about-the-sailpoint-developer-community-colab/11230)
 
